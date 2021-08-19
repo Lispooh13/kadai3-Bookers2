@@ -1,5 +1,4 @@
-    <div class="container px-5 px-sm-0">
-      <div class="row">
+<div class="row">
         <div class="col-md-3">
 
           <h2>User info</h2>
@@ -40,22 +39,19 @@
 
         </div>
         <div class="col-md-8">
-         <h2>Books</h2>
+         <h2>Book detail</h2>
            <table class="table table-striped">
-             <thead>
-               <tr>
-                 <th></th>
-                 <th>Title</th>
-                 <th>Opinion</th>
-               </tr>
-             </thead>
              <tbody>
               <% @books.each do |book| %>
                 <tr>
                   <td><%= attachment_image_tag @user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg"%></td>
-                  <td><%= link_to "book.title",book_path(@books) %></td>
+                   <td><%= link_to "book.title",book_path(@books) %></td>
                   <td><%= book.body %></td>
-                  
+                  <td><%= link_to "Edit", edit_book_path(book) %></td>
+                  <td><%= link_to "Destroy", book_path(book),method: :delete ,"data-confirm" => "Are you sure？" %></td>
+                  <%= @user.name %>
+
+
                 </tr>
               <% end %>
              </tbody>

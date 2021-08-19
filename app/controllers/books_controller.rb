@@ -10,9 +10,17 @@ class BooksController < ApplicationController
   def index
     @book=Book.new
     @books=Book.all
+    @user=current_user
+    @users=User.all
+  end
+  
+  def show
+    @books=Book.all
+    @user=current_user
   end
 
   def edit
+    @book = Book.find(params[:id])
   end
 
   def update
@@ -24,7 +32,8 @@ class BooksController < ApplicationController
   private
   
   def book_params
-    params.require(:book).permit(:title, :body)
+    params.require(:book).permit(:title, :body)  
+    #profile_imageも追加？けど投稿機能ではないから違う？
   end
   
 end
