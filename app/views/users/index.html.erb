@@ -1,4 +1,6 @@
+
 <%= render 'users/user_info', user: @user %>
+
 
          <h2 class="mt-3">New book</h2>
           <%= form_with model: @book, url: books_path, local:true do |f| %>
@@ -20,21 +22,21 @@
 
         </div>
         <div class="col-md-8">
-         <h2>Books</h2>
+         <h2>Users</h2>
            <table class="table table-striped">
              <thead>
                <tr>
+                 <th>image</th>
+                 <th>name</th>
                  <th></th>
-                 <th>Title</th>
-                 <th>Opinion</th>
                </tr>
              </thead>
              <tbody>
-              <% @books.each do |book| %>
+              <% @users.each do |user| %>
                 <tr>
                   <td><%= attachment_image_tag @user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg"%></td>
-                  <td><%= link_to "book.title",book_path(@books) %></td>
-                  <td><%= book.body %></td>
+                  <td><%= user.name %></td>
+                  <td><%= link_to "Show", user_path(current_user.id) %></td>
 
                 </tr>
               <% end %>

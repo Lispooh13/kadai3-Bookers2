@@ -53,7 +53,9 @@
               <% @books.each do |book| %>
                 <tr>
                   <td><%= attachment_image_tag @user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg"%></td>
-                  <td><%= link_to "book.title",book_path(@books) %></td>
+                  <!--users#showへリンク-->
+                  
+                  <td><%= link_to (book.title), book_path(book) %></td>
                   <td><%= book.body %></td>
                   
                 </tr>
