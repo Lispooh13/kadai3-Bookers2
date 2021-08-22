@@ -62,7 +62,7 @@ before_action :ensure_correct_user, only:[:edit]
   def ensure_correct_user
     @book = Book.find(params[:id])
      unless @book.user == current_user
-     redirect_to book_path
+     redirect_to books_path
    end
   end
 end
