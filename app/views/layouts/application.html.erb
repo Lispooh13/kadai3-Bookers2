@@ -84,12 +84,18 @@
         </div>
       </div>
     </nav>
-    <%= form_with url: search_path, method: :get, local: :true do |f| %>
-      <%= f.text_field :word %>
-      <%= f.select :range, options_for_select([['User'],['Book']]) %>
-      <%= f.select :search, options_for_select([["完全一致","perfect_match"],["部分一致","partial_match"]])%>
-      <%= f.submit "検索" %>
-    <% end %>
+    
+    <% if user_signed_in? %>
+    <div class="text-center">
+      <%= form_with url: search_path, method: :get, local: :true do |f| %>
+        <%= f.text_field :word %>
+        <%= f.select :range, options_for_select([['User'],['Book']]) %>
+        <%= f.select :search, options_for_select([["完全一致","perfect_match"],["部分一致","partial_match"]])%>
+        <%= f.submit "検索" %>
+      <% end %>
+    </div>
+   <% end %>
+  
   </header>
 
   <main>
@@ -102,7 +108,7 @@
     <%= yield %>
   </main>
 
-  <footer>
+  <footer class="fixed-bottom">
     <div class="container mt-5">
   	<div class="row">
     	<div class="mx-auto">
