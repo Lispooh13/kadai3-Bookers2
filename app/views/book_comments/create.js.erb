@@ -1,0 +1,5 @@
+$(".comment_index").html("<%=escape_javascript(render partial:'book_comments/comment_index',locals: {book: @book})%>");
+
+$("#book_comment_comment").val('');
+
+$(".comment_count").html("<%=escape_javascript(render partial:'book_comments/comment_count',locals: {book: @book})%>");
