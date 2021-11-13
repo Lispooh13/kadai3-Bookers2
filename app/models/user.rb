@@ -8,40 +8,40 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :book_comments, dependent: :destroy
 
-  has_many :relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
-  has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+  has_many :relationships,
+    class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
+  has_many :reverse_of_relationships,
+    class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
 
   has_many :followings, through: :relationships, source: :followed # 自分がフォローしている人一覧
   has_many :followers, through: :reverse_of_relationships, source: :follower # 自分をフォローしている人一覧
 
-  #ユーザーをフォローする
+  # ユーザーをフォローする
   def follow(user_id)
     relationships.create(followed_id: user_id)
   end
 
-  #ユーザーのフォローを外す
+  # ユーザーのフォローを外す
   def unfollow(user_id)
     relationships.find_by(followed_id: user_id).destroy
   end
 
-  #フォローしていればtrueを返す
+  # フォローしていればtrueを返す
   def following?(user)
     followings.include?(user)
   end
-  
-  
-  def self.looks(searches,words)
+
+  def self.looks(searches, words)
     if searches == "perfect_match"
-      @user = User.where("name LIKE ?","#{words}")
+      @user = User.where("name LIKE ?", "#{words}")
     else
-      @user = User.where("name LIKE ?","%#{words}%")
+      @user = User.where("name LIKE ?", "%#{words}%")
     end
-  end  
+  end
 
   attachment :profile_image
 
-   validates :name, uniqueness: true
-   validates :name, length: { minimum: 2, maximum: 20 }
-   validates :introduction, length: { maximum: 50 }
-
+  validates :name, uniqueness: true
+  validates :name, length: { minimum: 2, maximum: 20 }
+  validates :introduction, length: { maximum: 50 }
 end

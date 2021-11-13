@@ -1,16 +1,14 @@
 class UsersController < ApplicationController
-before_action :ensure_correct_user, only:[:edit]
-
+  before_action :ensure_correct_user, only: [:edit]
 
   def show
     @user = User.find(params[:id])
     @books = @user.books
     @book = Book.new
-    
   end
 
   def edit
-    @user=User.find(params[:id])
+    @user = User.find(params[:id])
     if @user == current_user
       render :edit
     else
@@ -19,7 +17,7 @@ before_action :ensure_correct_user, only:[:edit]
   end
 
   def update
-    @user=User.find(params[:id])
+    @user = User.find(params[:id])
 
     if @user.update(user_params)
       flash[:notice] = "You have updated user successfully."
@@ -30,13 +28,11 @@ before_action :ensure_correct_user, only:[:edit]
   end
 
   def index
-    @book=Book.new
-    @books=Book.all
-    @users= User.all
-    @user=current_user
+    @book = Book.new
+    @books = Book.all
+    @users = User.all
+    @user = current_user
   end
-
-
 
   private
 
@@ -44,11 +40,10 @@ before_action :ensure_correct_user, only:[:edit]
     params.require(:user).permit(:name, :profile_image, :introduction)
   end
 
-
- def ensure_correct_user
-     @user = User.find(params[:id])
-     unless @user == current_user
-     redirect_to user_path(current_user)
-     end
- end
+  def ensure_correct_user
+    @user = User.find(params[:id])
+    unless @user == current_user
+      redirect_to user_path(current_user)
+    end
+  end
 end
